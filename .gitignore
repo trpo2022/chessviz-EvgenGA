@@ -1,5 +1,5 @@
 # no *.o or *.a files
-*.[oa]
+*.[oa]*
 # no temporary files
 *~
 *swp
