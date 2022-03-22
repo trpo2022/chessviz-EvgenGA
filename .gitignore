@@ -1,5 +1,7 @@
 # no *.o or *.a files
 *.[oa]*
+# no *.exe files
+*.exe
 # no temporary files
 *~
 *swp

@@ -1,10 +1,10 @@
 all: chess
 
 chess: chess.c
-	gcc -Wall -Werror -o chess.o chess.c
+	gcc -Wall -Werror -o chess.exe chess.c
 
 clean:
-	rm chess.o
+	rm chess.exe
 
 run:
-	./chess.o
+	./chess.exe
