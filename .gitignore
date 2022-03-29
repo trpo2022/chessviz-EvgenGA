@@ -1,12 +1,13 @@
+# ignore files without extension
+*
+!*.*
+!Makefile
 # no *.o or *.a files
-*.[oa]*
-# no *.exe files
-*.exe
+*.[oa]
 # no temporary files
 *~
 *swp
-# ignore all files in the bin/
-directory
+# ignore all files in the bin/directory
 bin/
 # no *.txt files
 *.txt
