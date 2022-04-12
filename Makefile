@@ -1,7 +1,9 @@
 all: chess
 
-chess: chess.c
-	gcc -Wall -Werror -o chess chess.c startpos.h
+chess.o: chess.c
+	gcc -Wall -Werror -c chess.c
+chess: chess.o
+	gcc chess.o -o chess
 
 clean:
 	rm chess

@@ -1,10 +1,25 @@
-//l ladya       h horse         ys slon
-//q queen       k king          p peshka
+#include <stdio.h>
+//r Rook        n kNight        b Bishop
+//q Queen       k King          p Peshka
+void startsort(char A[][9]);
+void putout(char A[][9]);
+
+void putout(char A[][9])
+{
+        for(int j = 0; j < 9; j++)
+        {
+                for(int i = 0; i < 9; i++)
+                {
+                        printf("%3c", A[i][j]);
+                }
+                printf("\n");
+        }
+}
 
 void startsort(char A[][9])
 {
         int i,j;
-        int a = 97, h = 104, k = 107, l = 108, p = 112, q = 113, s = 115;
+        int a = 97, n = 110, k = 107, r = 114, p = 112, q = 113, b = 98;
         A[0][0] = ' ';
 
         for(i = 1; i < 9; i++)
@@ -28,9 +43,9 @@ void startsort(char A[][9])
                         A[i][j] = ' ';
                         if((j == 1) || (j == 8))
                         {
-                                if((i == 1) || (i == 8)) A[i][j] = l;
-                                if((i == 2) || (i == 7)) A[i][j] = h;
-                                if((i == 3) || (i == 6)) A[i][j] = s;
+                                if((i == 1) || (i == 8)) A[i][j] = r;
+                                if((i == 2) || (i == 7)) A[i][j] = n;
+                                if((i == 3) || (i == 6)) A[i][j] = b;
                                 if(i == 4) A[i][j] = q;
                                 if(i == 5) A[i][j] = k;
                         }

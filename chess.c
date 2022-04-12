@@ -1,20 +1,13 @@
 #include <stdio.h>
+#include <string.h>
 #include "startpos.h"
-//l ladya	h horse		ys slon
-//q queen	k king		p peshka
+
+//R Rook	n kNight	b Bishop
+//q Queen	k King		p Peshka
 int main()
 {
 	char A[9][9] = {0};
 	startsort(A);
-
-	for(int j = 0; j < 9; j++)
-	{
-		for(int i = 0; i < 9; i++)
-		{
-			printf("%3c", A[i][j]);
-		}
-		printf("\n");
-	}
-
+	putout(A);
 	return 0;
 }
