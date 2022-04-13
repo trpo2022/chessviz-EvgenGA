@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "startpos.h"
+#include "write.h"
 
 //R Rook	n kNight	b Bishop
 //q Queen	k King		p Peshka
