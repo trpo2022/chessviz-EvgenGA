@@ -41,7 +41,37 @@ void chessgame(char A[][9])
 				printf("No find chess\n");
 		}
 		printf("%c\n", ch);
+		A[a][b] = ' ';
 	}
 	else
+	{
 		printf("Error position\n");
+		return;
+	}
+
+	i += 3;
+
+	a = B[i] - 96;
+	b = B[i+1] - 48;
+
+	if(position(a, b))
+	{
+		//there need make test on tipe chess
+
+		if(B[i-1] == '-' && A[a][b] == ' ')
+		{
+			A[a][b] = ch;
+		}
+		if(B[i-1] == 'x' && A[a][b] != ' ')
+		{
+			if((isupper(ch) && islower(A[a][b])) || (isupper(A[a][b]) && islower(ch)))
+				A[a][b] = ch;
+		}
+	}
+	else
+	{
+		printf("%c %c\n", B[i], B[i+1]);
+		printf("This position unexist\n");
+		return;
+	}
 }
