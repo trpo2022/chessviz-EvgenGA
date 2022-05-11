@@ -8,7 +8,7 @@ int position(int a, int b)
 	return 0;
 }
 
-void chessgame(char A[][9])
+int chessgame(char A[][9], int s)
 {
 	printf("\n" "Small piece first move\n" "\n");
 	char ch, B[8] = {};
@@ -23,7 +23,7 @@ void chessgame(char A[][9])
 	a = B[i] - 96;
 	b = B[i+1] - 48;
 
-	if(position(a, b))
+	if(position(a, b) && islower(A[a][b]) == s)
 	{
 		if(i == 1 && B[0] == toupper(A[a][b]))
 		{
@@ -37,16 +37,14 @@ void chessgame(char A[][9])
 				printf("This chess is '%c'\n", A[a][b]);
 				ch = A[a][b];
 			}
-			else
-				printf("No find chess\n");
+			else	printf("No find chess\n");
 		}
-		printf("%c\n", ch);
 		A[a][b] = ' ';
 	}
 	else
 	{
 		printf("Error position\n");
-		return;
+		return 0;
 	}
 
 	i += 3;
@@ -72,6 +70,12 @@ void chessgame(char A[][9])
 	{
 		printf("%c %c\n", B[i], B[i+1]);
 		printf("This position unexist\n");
-		return;
+		a = B[i - 3] - 96;
+		b = B[i - 2] - 48;
+		A[a][b] = ch;
+		return 0;
 	}
+
+	//else move is true
+	return 1;
 }
