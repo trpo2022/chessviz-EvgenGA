@@ -1,9 +1,35 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-//r Rook        n kNight        b Bishop
-//q Queen       k King          p Peshka
-
+#include "figura.h"
+int chessis(char* A[], int a, b, c, d)
+{
+	int s = 0;
+	switch(tolower(A[a][b]))
+	{
+		case 'r':
+			s = Rook(A, a, b, c, d)
+			break;
+		case 'n':
+			s = kNight(A, a, b, c, d)
+			break;
+		case 'b':
+			s = Bishop(A, a, b, c, d)
+			break;
+		case 'q':
+			s = Queen(A, a, b, c, d)
+			break;
+		case 'k':
+			s = King(A, a, b, c, d)
+			break;
+		default:
+			s = Peshka(A, a, b, c, d)
+			break;
+	}
+	if(s == 1)
+		return 1;
+	return 0;
+}
 int position(int a, int b)
 {
 	if((a >= 1 && a <= 8) && (b >= 1 && b <= 8))
@@ -14,7 +40,7 @@ int position(int a, int b)
 int chessgame(char A[][9], int s)
 {
 	char ch, B[8] = {};
-	int a, b, i;
+	int a, b, c, d, i;
 	fgets(B, sizeof(B), stdin);
 	if(B[0] == 'q') return 2;
 
@@ -28,26 +54,8 @@ int chessgame(char A[][9], int s)
 	a = B[i] - 96;
 	b = B[i+1] - 48;
 
-	if(position(a, b) &&(isupper(A[a][b]) >= s || islower(A[a][b]) >= s))
+	if(position(a, b) && ((s == 0 && isupper(A[a][b])) || (s == 1 && islower(A[a][b]))))
 	{
-//r Rook        n kNight        b Bishop
-//q Queen       k King          p Peshka
-
-		switch(tolower(ch))
-		{
-			case(r):
-//				Rook();
-			case(q):
-//				Queen(); //Boshop + Rook
-			case(n):
-//				kNight();
-			case(k):
-//				King();
-			case(b):
-//				Bishop();
-			case(p):
-//				Peshka();
-		}
 		if(i == 1 && B[0] == toupper(A[a][b]))
 		{
 			ch = A[a][b];
@@ -70,22 +78,30 @@ int chessgame(char A[][9], int s)
 	}
 
 	i += 3;
+	c = B[i] - 96;
+	d = B[i+1] - 48;
 
-	a = B[i] - 96;
-	b = B[i+1] - 48;
-
-	if(position(a, b))
-	{
-		//there need make test on tipe chess
-
-		if(B[i-1] == '-' && A[a][b] == ' ')
+	if(position(c, d)) {
+		if(B[i-1] == '-' && A[c][d] == ' ')
 		{
-			A[a][b] = ch;
+			if(chesis(A, a, b, c, d))
+				A[c][d] = ch;
+			else
+			{
+				printf("it don`t this move\n");
+				return 0;
+			}
 		}
-		else if(B[i-1] == 'x' && A[a][b] != ' ')
+		else if(B[i-1] == 'x' && A[c][d] != ' ')
 		{
-			if((isupper(ch) && islower(A[a][b])) || (isupper(A[a][b]) && islower(ch)))
-				A[a][b] = ch;
+			if((isupper(ch) && islower(A[c][d])) || (isupper(A[c][d]) && islower(ch)))
+				if(chesis(A, a, b, c, d))
+					A[c][d] = ch;
+				else
+				{
+					printf("it don`t this move\n");
+					return 0;
+				}
 		}
 		else
 		{
@@ -97,9 +113,7 @@ int chessgame(char A[][9], int s)
 	{
 		printf("%c %c\n", B[i], B[i+1]);
 		printf("This position unexist\n");
-		a = B[i - 3] - 96;
-		b = B[i - 2] - 48;
-		A[a][b] = ch;
+		A[c][d] = ch;
 		return 0;
 	}
 	if(B[i+3] == '#')	return 2;
