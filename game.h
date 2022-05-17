@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+//r Rook        n kNight        b Bishop
+//q Queen       k King          p Peshka
+
 int position(int a, int b)
 {
 	if((a >= 1 && a <= 8) && (b >= 1 && b <= 8))
@@ -10,24 +13,43 @@ int position(int a, int b)
 
 int chessgame(char A[][9], int s)
 {
-	printf("\n" "Small piece first move\n" "\n");
 	char ch, B[8] = {};
-	int a, b, i = 0;
+	int a, b, i;
 	fgets(B, sizeof(B), stdin);
+	if(B[0] == 'q') return 2;
+
+	i = 0;
 
 	if(isupper(B[0]))
 	{
-		i++;
+		i = 1;
 	}
 
 	a = B[i] - 96;
 	b = B[i+1] - 48;
 
-	if(position(a, b) && islower(A[a][b]) == s)
+	if(position(a, b) &&(isupper(A[a][b]) >= s || islower(A[a][b]) >= s))
 	{
+//r Rook        n kNight        b Bishop
+//q Queen       k King          p Peshka
+
+		switch(tolower(ch))
+		{
+			case(r):
+//				Rook();
+			case(q):
+//				Queen(); //Boshop + Rook
+			case(n):
+//				kNight();
+			case(k):
+//				King();
+			case(b):
+//				Bishop();
+			case(p):
+//				Peshka();
+		}
 		if(i == 1 && B[0] == toupper(A[a][b]))
 		{
-			printf("The chess is true\n");
 			ch = A[a][b];
 		}
 		else
@@ -43,7 +65,7 @@ int chessgame(char A[][9], int s)
 	}
 	else
 	{
-		printf("Error position\n");
+		printf("Wrong move\n");
 		return 0;
 	}
 
@@ -60,10 +82,15 @@ int chessgame(char A[][9], int s)
 		{
 			A[a][b] = ch;
 		}
-		if(B[i-1] == 'x' && A[a][b] != ' ')
+		else if(B[i-1] == 'x' && A[a][b] != ' ')
 		{
 			if((isupper(ch) && islower(A[a][b])) || (isupper(A[a][b]) && islower(ch)))
 				A[a][b] = ch;
+		}
+		else
+		{
+			printf("Error move\n");
+			return 0;
 		}
 	}
 	else
@@ -75,6 +102,7 @@ int chessgame(char A[][9], int s)
 		A[a][b] = ch;
 		return 0;
 	}
+	if(B[i+3] == '#')	return 2;
 
 	//else move is true
 	return 1;

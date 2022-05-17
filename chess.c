@@ -5,25 +5,29 @@
 
 int main()
 {
+	printf("Hello, Player. This game is the chess\n");
 	char A[9][9] = {0};
-	int s = 0; //0-white, 1-black
+	int x, s = 0; //0-white, 1-black
 	startsort(A);
 	putout(A);
-	while(s == 10)
+	while(1)
 	{
 		if(s % 2 == 0)
-			printf("Move white\n");
-		else	printf("Move black\n");
+			printf("\n" "Move white(Hight chess)\n");
+		else
+			printf("\n" "Move black(Lower chess)\n");
 
-		if(chessgame(A, s%=2) == 1)
+		x = chessgame(A, s%2);
+		if(x == 2)	break;
+		if(x == 1)
 		{
-			printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+			printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 			putout(A);
 			s++;
 		}
 		else	printf("The move isn`t correct. Please, try again.\n");
 	}
-
+	printf("%d\n", s);
         printf("\n" "See you later!\n" "\n");
 	return 0;
 }
