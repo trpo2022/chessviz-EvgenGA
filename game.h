@@ -2,28 +2,25 @@
 #include <ctype.h>
 #include <string.h>
 #include "figura.h"
-int chessis(char* A[], int a, b, c, d)
+int chessis(char A[][9], int a, int b, int c, int d)
 {
 	int s = 0;
 	switch(tolower(A[a][b]))
 	{
 		case 'r':
-			s = Rook(A, a, b, c, d)
+			s = Rook(A, a, b, c, d);
 			break;
 		case 'n':
-			s = kNight(A, a, b, c, d)
+			s = kNight(A, a, b, c, d);
 			break;
 		case 'b':
-			s = Bishop(A, a, b, c, d)
+			s = Bishop(A, a, b, c, d);
 			break;
 		case 'q':
-			s = Queen(A, a, b, c, d)
+			s = Queen(A, a, b, c, d);
 			break;
 		case 'k':
-			s = King(A, a, b, c, d)
-			break;
-		default:
-			s = Peshka(A, a, b, c, d)
+			s = King(A, a, b, c, d);
 			break;
 	}
 	if(s == 1)
@@ -81,27 +78,43 @@ int chessgame(char A[][9], int s)
 	c = B[i] - 96;
 	d = B[i+1] - 48;
 
-	if(position(c, d)) {
+	if(position(c, d))
+	{
+		if(a == c && b == d)
+			return 0;
+
 		if(B[i-1] == '-' && A[c][d] == ' ')
 		{
-			if(chesis(A, a, b, c, d))
+			if(chessis(A, a, b, c, d))
 				A[c][d] = ch;
 			else
 			{
-				printf("it don`t this move\n");
-				return 0;
-			}
-		}
-		else if(B[i-1] == 'x' && A[c][d] != ' ')
-		{
-			if((isupper(ch) && islower(A[c][d])) || (isupper(A[c][d]) && islower(ch)))
-				if(chesis(A, a, b, c, d))
+				if(Peshka(A, a, b, c, d, s))
 					A[c][d] = ch;
 				else
 				{
 					printf("it don`t this move\n");
 					return 0;
 				}
+			}
+		}
+		else if(B[i-1] == 'x' && A[c][d] != ' ')
+		{
+			if((isupper(ch) && islower(A[c][d])) || (isupper(A[c][d]) && islower(ch)))
+			{
+				if(chessis(A, a, b, c, d))
+					A[c][d] = ch;
+				else
+				{
+					if(Peshkax(A, a, b, c, d, s))
+						A[c][d] = ch;
+					else
+					{
+						printf("it don`t this move\n");
+						return 0;
+					}
+				}
+			}
 		}
 		else
 		{
